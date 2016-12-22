@@ -1,0 +1,3 @@
+var hasCycle = function(linkedList){
+  //Your beautiful code here
+};

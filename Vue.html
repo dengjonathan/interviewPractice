@@ -1,0 +1,22 @@
+<div id="counter">
+  <button @click="up()">+</button>
+  <p id="count">{{ value }}</p>
+  <button @click="down()">-</button>
+</div>
+<script>
+var counter = new Vue({
+  el: '#counter',
+  data: {
+    value: 0
+  },
+  methods: {
+    up: function() {
+      this.value += 1
+    },
+    down: function() {
+      this.value -= 1
+    }
+  }
+})
+</script>
+

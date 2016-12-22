@@ -1,0 +1,33 @@
+{
+  "name": "playground",
+  "version": "1.0.0",
+  "description": "",
+  "main": "insertionSort.js",
+  "dependencies": {
+    "accounting": "^0.4.1",
+    "axios": "^0.15.2",
+    "babel": "^6.5.2",
+    "babel-eslint": "^6.1.2",
+    "d3": "^4.2.6",
+    "eslint": "^3.6.1",
+    "eslint-plugin-react": "^6.3.0",
+    "gulp": "^3.9.1",
+    "highland": "^2.10.0",
+    "httpdispatcher": "^1.0.0",
+    "jquery": "^3.1.1",
+    "ramda": "^0.22.1",
+    "redux": "^3.6.0",
+    "request": "^2.76.0",
+    "require": "^2.4.20",
+    "rx": "^4.1.0",
+    "rxjs": "^5.0.0-rc.1",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint ."
+  },
+  "author": "",
+  "license": "ISC"
+}

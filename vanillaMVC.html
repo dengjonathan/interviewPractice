@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vanilla JS MVC</title>
+</head>
+<body>
+  <div class="counter">
+    <button id="up">+</button>
+    <p id="count"></p>
+    <button id="down">-</button>
+  </div>
+
+  <script>
+
+    (function() {
+      // MODEL: where we store all the data
+      let value = 0;
+
+      // VIEW: DOM nodes representing what is displayed on page
+      const $count = document.getElementById('count');
+      const $up = document.getElementById('up');
+      const $down = document.getElementById('down');
+
+      // CONTROLLER: how user interaction translates to model changes
+      $up.onclick = () => {
+        value =  value + 1;
+        $count.innerHTML = value;
+      };
+      $down.onclick = () => {
+        value = value - 1;
+        $count.innerHTML = value;
+      };
+
+      // init page with current value
+      $count.innerHTML = value;
+    })()
+
+  </script>
+</body>
+</html>

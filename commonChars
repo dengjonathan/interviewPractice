@@ -1,0 +1,17 @@
+const shorter = (a,b) => a.length <= b.length ? a : b;
+
+const commonCharacters = function(string1, string2){
+  const shorter = shorter(string1, string2);
+  const longer = shorter === string1 ? string2 : string1;
+  
+  const set = shorter
+    .reduce((memo, curr) => {
+      if (longer.indexOf(curr) > -1) memo.add(curr);
+      return memo;
+    }, new Set())
+  return Array.from(set);
+};
+
+
+console.log(commonCharacters('abc', 'aabcde'))
+console.log('all done')

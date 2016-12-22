@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vanilla JS</title>
+</head>
+<body>
+  <div class="counter">
+    <button id="up">+</button>
+    <p id="count">0</p>
+    <button id="down">-</button>
+  </div>
+  <script>
+    (function() {
+      const $count = document.getElementById('count');
+      const $up = document.getElementById('up');
+      const $down = document.getElementById('down');
+
+      $up.onclick = () => $count.innerHTML = parseInt($count.innerHTML) + 1;
+      $down.onclick = () => $count.innerHTML = parseInt($count.innerHTML) - 1;
+    })()
+  </script>
+</body>
+</html>
