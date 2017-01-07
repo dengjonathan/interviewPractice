@@ -1,87 +1,120 @@
-function BinaryHeap() {
+function BinaryHeap(comparator) {
   this._heap = [];
   // this compare function will result in a minHeap, use it to make comparisons between nodes in your solution
-  this._compare = function (i, j) {
-    return i < j
+  this._compare = comparator || function (i, j) {
+    if (i < j) {
+      return -1;
+    }
+    if (i === j) {
+      return 0;
+    }
+    return 1;
   };
 
-  this._getParent = index => index > 0 ? Math.floor((index - 1) / 2) : null;
+  this.getParent = index => index > 0 ? Math.floor((index - 1) / 2) : null;
 
-  this._getChildren = function (index) {
+  this.getChildren = function (index) {
     const children = [];
-    if ((index * 2 + 1) < this._heap.length) {
-      children.push(this._heap[index * 2 + 1]);
+    if (index * 2 + 1 < this._heap.length) {
+      children.push(index * 2 + 1);
     }
     if (index * 2 + 2 < this._heap.length) {
-      children.push(this._heap[index * 2 + 2]);
+      children.push(index * 2 + 2);
     }
     return children;
   };
 
   this._switch = function (childIndex, parentIndex) {
     const child = this._heap[childIndex];
-    const parent = this._heap[parentIndex];
-    this._heap[childIndex] = parent;
+    this._heap[childIndex] = this._heap[parentIndex];
     this._heap[parentIndex] = child;
     return parentIndex;
   }
 }
-// This function works just fine and shouldn't be modified
+
 BinaryHeap.prototype.getRoot = function () {
   return this._heap[0];
 }
 
 BinaryHeap.prototype.insert = function (value) {
   this._heap.push(value);
-  let index = this._heap.length - 1;
-  while (index > 0) {
-    let lessThanParent = this._compare(value, this._heap[this._getParent(index)]);
-    if (lessThanParent) {
-      index = this._switch(index, this._getParent(index));
-    } else {
-      break;
-    }
-  }
-  return index;
+  this.bubbleUp(this._heap.length - 1);
 }
+
+BinaryHeap.prototype.bubbleUp = function(index) {
+  const parent = this.getParent(index);
+  if (parent === null) {
+    return;
+  }
+  if (this._compare(this._heap[index], this._heap[parent]) < 0) {
+    this._switch(index, parent);
+    this.bubbleUp(parent);
+  }
+};
 
 BinaryHeap.prototype.removeRoot = function () {
-  const root = this._heap[0]
-  this._heap = [
-    this._heap.pop(),
-    ...this._heap.slice(1)
-  ];
-  let index = 0;
-  const value = this._heap[0];
-  while (this._getChildren(index).length) {
-    let lessThanBothChildren = true;
-    //compare to both children
-    let children = this._getChildren(index);
-    for (let i = 0; i < children.length; i++) {
-      if (this._compare(this._heap[children[i]], value)) {
-        index = this._switch(index, i);
-        lessThanBothChildren = false;
-      }
-    }
-    if (lessThanBothChildren === true) {
-      break;
+  const root = this._heap.shift();
+  this._heap.unshift(this._heap.pop());
+  this.bubbleDown(0);
+  return root;
+};
+
+BinaryHeap.prototype.bubbleDown = function (index) {
+  const children = this.getChildren(index);
+  if (!children.length) {
+    return;
+  }
+  for (let i = 0; i < children.length; i++) {
+    if (this._compare(this._heap[index], this._heap[children[i]]) > 0) {
+      const child = this._switch(index, children[i]);
+      this.bubbleDown(child);
+      this.bubbleDown(index);
     }
   }
-  return root;
-}
+};
 
-var binaryHeap = new BinaryHeap();
-binaryHeap.insert(4);
-binaryHeap.insert(5);
-binaryHeap.insert(9);
-binaryHeap.insert(8);
-binaryHeap.insert(1);
-binaryHeap.insert(0);
-binaryHeap.removeRoot();
+const expect = require('chai').expect;
+var minHeap = new BinaryHeap();
+minHeap.insert(4);
+minHeap.insert(5);
+minHeap.insert(9);
+minHeap.insert(8);
+minHeap.insert(1);
+minHeap.insert(0);
 
-var compare = binaryHeap._compare;
-var heap = binaryHeap._heap;
+var compare = minHeap._compare;
+var heap = minHeap._heap;
 
-// heap[0] is the parent of heap[1] and heap[2]
-// heap[1] is the parent of heap[3] and heap[4]
-console.log(heap)
+expect(heap[0]).to.equal(0);
+
+minHeap.removeRoot();
+
+expect(heap[0]).to.equal(1);
+
+
+// test maxHeap
+const maxHeap = new BinaryHeap((a, b) => {
+  if(a < b) {
+    return 1;
+  }
+  if (a === b) {
+    return 0;
+  }
+  return -1;
+});
+maxHeap.insert(4);
+maxHeap.insert(5);
+maxHeap.insert(9);
+maxHeap.insert(8);
+maxHeap.insert(1);
+maxHeap.insert(0);
+
+expect(maxHeap.getRoot()).to.equal(9);
+
+expect(maxHeap.removeRoot()).to.equal(9);
+
+expect(maxHeap.getRoot()).to.equal(8);
+
+console.log('all tests passed');
+
+module.exports = BinaryHeap;
