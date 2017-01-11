@@ -41,11 +41,11 @@ const preorderDFSIter = (root, cb) => {
   while (stack.length) {
     const node = stack.pop();
     cb(node);
-    if (node.left) {
-      stack.push(node.right);
-    }
     if (node.right) {
       stack.push(node.left);
+    }
+    if (node.left) {
+      stack.push(node.right);
     }
   }
 };
