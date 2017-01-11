@@ -3,6 +3,7 @@
  */
 var MinStack = function() {
     this.stack = [];
+    this.min = null;
 };
 
 /** 
@@ -10,39 +11,43 @@ var MinStack = function() {
  * @return {void}
  */
 MinStack.prototype.push = function(x) {
-  this.stack.push(x); 
+  const node = {
+      val: x,
+      min: this.min
+  };
+  this.stack.push(node);
+  if (this.min > x || this.min === null) {
+      this.min = x;
+  }
 };
 
 /**
  * @return {void}
  */
 MinStack.prototype.pop = function() {
-    return this.stack.pop();
+    const node = this.stack.pop();
+    this.min = node.min;
 };
 
 /**
  * @return {number}
  */
 MinStack.prototype.top = function() {
-    return this.stack[this.stack.length - 1];
+    return this.stack[this.stack.length - 1].val;
 };
 
 /**
  * @return {number}
  */
 MinStack.prototype.getMin = function() {
-    return this.stack[0];
+    return this.min;
 };
 
-const expect = require('chai').expect;
-
-const stack = new MinStack();
-
-[1,2,3,4].forEach(stack.push.bind(stack));
-expect(stack.getMin()).to.equal(1);
-expect(stack.pop()).to.equal(4);
-expect(stack.getMin()).to.equal(1);
-expect(stack.pop()).to.equal(3);
-
-expect(stack.top()).to.equal(2);
-expect(stack.getMin()).to.equal(1);
+/** 
+ * Your MinStack object will be instantiated and called as such:
+ * var obj = Object.create(MinStack).createNew()
+ * obj.push(x)
+ * obj.pop()
+ * var param_3 = obj.top()
+ * var param_4 = obj.getMin()
+ */
