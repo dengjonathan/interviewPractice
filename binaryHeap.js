@@ -53,7 +53,7 @@ BinaryHeap.prototype.bubbleUp = function(index) {
 };
 
 BinaryHeap.prototype.removeRoot = function () {
-  const root = this._heap.shift();
+  const root = this._heap.shift() || null;
   this._heap.unshift(this._heap.pop());
   this.bubbleDown(0);
   return root;

@@ -2,7 +2,7 @@
 // hash with doubly linked list on each frequency
 // hash with reference to value and memory node
 class Node {
-  constructor(key) {
+  constructor(val) {
     this.val = val;
     this.next = null;
     this.prev = null;
@@ -31,25 +31,56 @@ class LinkedList {
     if (this.tail === node) {
       this.tail = node.prev; // can be null
     }
-    if (node.next && node.prev){}
-
-    node.prev.next = node.next;
-    node.next.prev = node.prev;
+    if (node.next) {
+      node.next.prev = node.prev;
+    }
+    if (node.prev) {
+      node.prev.Next = node.next;
+    }
     return node;
   }
-}
-
-class LinkedHashMap {
-  constructor() {
-    this.storage = {};
-    this.size = 0;
-  }
-  addBucket(index) {
-    if (!this.storage[bucket]) {
-      this.storage[bucket] = [];
+  toArray() {
+    if (!this.head) {
+      return [];
     }
-  }
-  addValue(key) {
-
+    const result = [];
+    let current = this.head;
+    while (current) {
+      result.push(current.val);
+      current = current.next;
+    }
+    return result;
   }
 }
+
+// class LinkedHashMap {
+//   constructor() {
+//     this.storage = {};
+//     this.size = 0;
+//   }
+//   addBucket(index) {
+//     if (!this.storage[bucket]) {
+//       this.storage[bucket] = [];
+//     }
+//   }
+//   addValue(key) {
+
+//   }
+// }
+
+// TESTS
+const expect = require('chai').expect;
+const list = new LinkedList();
+
+const refs = [];
+
+[1, 2, 3, 4, 5].forEach(num => {
+  refs.push(list.addToTail(new Node(num)));
+});
+
+list.splice(refs[3]);
+list.splice(refs[0]);
+list.splice(refs[refs.length - 1]);
+
+expect(list.toArray()).to.eql([2, 4]);
+console.log('all tests passed!!!!');

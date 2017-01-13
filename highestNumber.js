@@ -19,7 +19,7 @@ when choosing between 2 values with same leading term:
     
 [45, 500, 489, 7, 3] => 7500489453
 [4, 500, 449, 7, 3] => 750044943
-[4, 500, 439, 7, 3] => 
+[4, 500, 439, 7, 3] => ``
 
 [46, 453]
 if leading of a === leading of b:

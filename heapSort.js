@@ -2,7 +2,8 @@
 // then pop off each value one by one and add to Array
 // can be done in place
 // Time: O(n log n) for each of n values, add or pop from binary tree O(log n)
-
+// also problem is that heap sort is not stable, if you put in already sorted array,
+// may get array back in a different order
 const Heap = require('./binaryHeap');
 
 const heapSort = arr => {

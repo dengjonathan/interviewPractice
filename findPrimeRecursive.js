@@ -1,23 +1,40 @@
-function findPrime(n) {
+function isPrime(n) {
   if (n < 2) {
     return false
   }  
   if (n === 2) {
     return true;
   }
-  const findPrimeInner = (n, i=n-1) => {
+  const isPrimeInner = (n, i=n-1) => {
     if (n % i === 0) {
       return false;
     }
     if (i === 2) {
       return true;
     }
-    return findPrimeInner(n, i-1);
+    return isPrimeInner(n, i-1);
   }
-  return findPrimeInner(n);
+  return isPrimeInner(n);
+}
+
+// optimize by looking just at square root
+
+const isPrimeOptimize = n => {
+  if (n < 2) {
+    return false;
+  }
+  for (let i = 2; i < Math.sqrt(n); i++) {
+    if (n % i === 0) {
+      return false;
+    }
+  }
+  return true;
 }
 
 const expect = require('chai').expect;
 
-expect(findPrime(13)).to.equal(true);
-expect(findPrime(12)).to.equal(false);
+expect(isPrime(13)).to.equal(true);
+expect(isPrime(12)).to.equal(false);
+
+expect(isPrimeOptimize(13)).to.equal(true);
+expect(isPrimeOptimize(12)).to.equal(false);

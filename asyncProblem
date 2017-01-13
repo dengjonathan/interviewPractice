@@ -1,0 +1,37 @@
+// Show 4 different ways to asynchonously iterate through an array and make a non-promisified database call.
+var Promise = require('bluebird')
+var newData = [{name: 'bob', age: 10},{name: 'larry', age: 100},{name: 'jane', age: 1000},{name: 'tRex', age: 10000} ];
+var db = {
+  write: function(obj, callback) {
+    console.log('writing', obj);
+    return callback(null, obj);
+  }
+}
+
+// function(error, saved){  }
+const newDataAsync = newData.map(record => new Promise((res, rej) => {
+    db.write(record, (err, saved) => {
+        if(err) {
+            rej(err);
+        }
+        res(saved);
+    });
+});
+
+
+Promise.all()
+    .then(arr => )
+    
+    
+const writeDataAsync = (errHandler, cb)  => {
+  newData.forEach(data => {
+    db.write(data, (err, data) {
+      if (err) {
+        return errHandler(err);
+      }
+      cb(data);
+    }
+  });
+};
+
+writeDataAsync(logging, displayToView);
