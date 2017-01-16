@@ -39,9 +39,7 @@ BinaryHeap.prototype.getRoot = function () {
 }
 
 BinaryHeap.prototype.insert = function (value) {
-  console.log('heap before', this._heap);
   this._heap.push(value);
-  console.log('heap after', this._heap)
   this.bubbleUp(this._heap.length - 1);
   this.size++;
 }
