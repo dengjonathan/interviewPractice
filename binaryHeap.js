@@ -11,6 +11,8 @@ function BinaryHeap(comparator) {
     return 1;
   };
 
+  this.size = 0;
+
   this.getParent = index => index > 0 ? Math.floor((index - 1) / 2) : null;
 
   this.getChildren = function (index) {
@@ -37,11 +39,14 @@ BinaryHeap.prototype.getRoot = function () {
 }
 
 BinaryHeap.prototype.insert = function (value) {
+  console.log('heap before', this._heap);
   this._heap.push(value);
+  console.log('heap after', this._heap)
   this.bubbleUp(this._heap.length - 1);
+  this.size++;
 }
 
-BinaryHeap.prototype.bubbleUp = function(index) {
+BinaryHeap.prototype.bubbleUp = function (index) {
   const parent = this.getParent(index);
   if (parent === null) {
     return;
@@ -54,8 +59,11 @@ BinaryHeap.prototype.bubbleUp = function(index) {
 
 BinaryHeap.prototype.removeRoot = function () {
   const root = this._heap.shift() || null;
-  this._heap.unshift(this._heap.pop());
-  this.bubbleDown(0);
+  if (this._heap.length > 1) {
+    this._heap.unshift(this._heap.pop());
+    this.bubbleDown(0);
+  }
+  this.size--;
   return root;
 };
 
@@ -73,48 +81,48 @@ BinaryHeap.prototype.bubbleDown = function (index) {
   }
 };
 
-const expect = require('chai').expect;
-var minHeap = new BinaryHeap();
-minHeap.insert(4);
-minHeap.insert(5);
-minHeap.insert(9);
-minHeap.insert(8);
-minHeap.insert(1);
-minHeap.insert(0);
+// const expect = require('chai').expect;
+// var minHeap = new BinaryHeap();
+// minHeap.insert(4);
+// minHeap.insert(5);
+// minHeap.insert(9);
+// minHeap.insert(8);
+// minHeap.insert(1);
+// minHeap.insert(0);
 
-var compare = minHeap._compare;
-var heap = minHeap._heap;
+// var compare = minHeap._compare;
+// var heap = minHeap._heap;
 
-expect(heap[0]).to.equal(0);
+// expect(heap[0]).to.equal(0);
 
-minHeap.removeRoot();
+// minHeap.removeRoot();
 
-expect(heap[0]).to.equal(1);
+// expect(heap[0]).to.equal(1);
 
 
-// test maxHeap
-const maxHeap = new BinaryHeap((a, b) => {
-  if(a < b) {
-    return 1;
-  }
-  if (a === b) {
-    return 0;
-  }
-  return -1;
-});
-maxHeap.insert(4);
-maxHeap.insert(5);
-maxHeap.insert(9);
-maxHeap.insert(8);
-maxHeap.insert(1);
-maxHeap.insert(0);
+// // test maxHeap
+// const maxHeap = new BinaryHeap((a, b) => {
+//   if(a < b) {
+//     return 1;
+//   }
+//   if (a === b) {
+//     return 0;
+//   }
+//   return -1;
+// });
+// maxHeap.insert(4);
+// maxHeap.insert(5);
+// maxHeap.insert(9);
+// maxHeap.insert(8);
+// maxHeap.insert(1);
+// maxHeap.insert(0);
 
-expect(maxHeap.getRoot()).to.equal(9);
+// expect(maxHeap.getRoot()).to.equal(9);
 
-expect(maxHeap.removeRoot()).to.equal(9);
+// expect(maxHeap.removeRoot()).to.equal(9);
 
-expect(maxHeap.getRoot()).to.equal(8);
+// expect(maxHeap.getRoot()).to.equal(8);
 
-console.log('all tests passed');
+// console.log('all tests passed');
 
 module.exports = BinaryHeap;
