@@ -18,13 +18,7 @@
 
 const meetingTime = (a, b, dur) => {
   const earlierTime = (a, b) => {
-    if (a[0] < b[0]) {
-      return -1;
-    }
-    if (a[0] === b[0]) {
-      return 0;
-    }
-    return 1;
+    return a[0] - b[0];
   };
 
   a.sort(earlierTime);
@@ -42,7 +36,7 @@ const meetingTime = (a, b, dur) => {
     // inc earliest time
     else a[i][0] === latestStart ? j++ : i++;
   }
-  return [-1, -1];
+  return [];
 };
 
 const expect = require('chai').expect;
@@ -56,4 +50,4 @@ expect(meetingTime(a, b, 2)).to.eql([5,7]);
 const c = [[0,1]]
 const d = [[1,2]]
 
-expect(meetingTime(c,d,1)).to.eql([-1, -1]);
+expect(meetingTime(c,d,1)).to.eql([]);
