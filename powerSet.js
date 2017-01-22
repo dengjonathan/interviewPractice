@@ -14,4 +14,23 @@ const powerSet = str => {
   ];
 };
 
-console.log(powerSet('horse'));
+
+// better approach use top down recursion/ DP to build set from previous
+// Time space O(n * 2 ^n)  we have to double the number of operations at each step
+const powerSetRecurse = (arr, n = arr.length) => {
+  if (n === 0) {
+    return [[]];
+  }
+  const previous = powerSetRecurse(arr, n - 1);
+  return [
+    ...previous,
+    ...previous.map(set => [...set, arr[n - 1]])
+  ];
+}
+
+const chai = require('chai');
+const chaiSubset = require('chai-subset');
+chai.use(chaiSubset);
+const expect = chai.expect;
+
+expect(powerSetRecurse(['a', 'b', 'c'])).to.containSubset([[], ['a'], ['b'], ['a', 'b'], ['c'], ['a', 'b', 'c']])
