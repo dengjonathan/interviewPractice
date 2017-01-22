@@ -1,4 +1,8 @@
 // assumption is that they're sorted arrays based on weights
+
+// time complexity O(n * W) because have to calculate soution for W different weights
+// and each weight have to calculate using n values (worst case)
+// space O(W) need to create a new stack frame for each weight
 const knapSack = (weights, values, W, n=weights.length) => {
   if (n === 0 || W === 0) {
     return 0;

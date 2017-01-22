@@ -26,7 +26,7 @@ class PriorityQueue {
       if (this.buckets[i].head) {
         const key = this.buckets[i].removeHead();
         delete this.hash[key];
-        return;
+        return key;
       }
     }
   }

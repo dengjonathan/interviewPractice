@@ -33,3 +33,6 @@ const expect = require('chai').expect;
 
 expect(findFour([1,2,3,4,4], 13)).to.eql([1,2,3,4]);
 expect(findFour([2,1,1,4], 4)).to.equal(null);
+
+
+// is there a backtracking solution?

@@ -1,8 +1,5 @@
 function mergeSort(arr){
-  if (!arr.length) {
-    return [];
-  }
-  if (arr.length === 1) {
+  if (arr.length <= 1) {
     return arr;
   }
   const half = Math.floor(arr.length / 2);
