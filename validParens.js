@@ -1,6 +1,8 @@
 /**
  * @param {string} s
  * @return {boolean}
+ * Time O(n) iterate through everything in list
+ * Space O(n) store 1/2 of all values
  */
 var isValid = function(s) {
     const stack = [];
